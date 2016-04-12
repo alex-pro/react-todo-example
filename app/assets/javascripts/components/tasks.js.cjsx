@@ -6,14 +6,17 @@
     tasks: []
 
   addTask: (task) ->
-    tasks = @state.tasks.slice()
-    tasks.push task
+    tasks = React.addons.update(@state.tasks, { $push: [task] })
     @setState tasks: tasks
 
   deleteTask: (task) ->
-    tasks = @state.tasks.slice()
-    index = tasks.indexOf task
-    tasks.splice index, 1
+    index = @state.tasks.indexOf task
+    tasks = React.addons.update(@state.tasks, { $splice: [[index, 1]] })
+    @replaceState tasks: tasks
+
+  updateTask: (task, data) ->
+    index = @state.tasks.indexOf task
+    tasks = React.addons.update(@state.tasks, { $splice: [[index, 1, data]] })
     @replaceState tasks: tasks
 
   render: ->
@@ -31,7 +34,7 @@
         </thead>
         <tbody>
           {for task in @state.tasks
-            React.createElement Task, key: task.id, task: task, handleDeleteTask: @deleteTask}
+            React.createElement Task, key: task.id, task: task, handleDeleteTask: @deleteTask, handleEditTask: @updateTask}
         </tbody>
       </table>
     </div>
