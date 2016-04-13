@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby "2.2.3"
 
 gem 'rails', '4.2.4'
+gem 'mysql'
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -16,7 +17,6 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-gem 'mysql2', group: :development
 
 group :development, :test do
   gem 'byebug'
